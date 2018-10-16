@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Music Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Spirax" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="loading-bar/loading-bar.css">
+    <script src="loading-bar/loading-bar.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://underscorejs.org/underscore-min.js"></script>
+    <script type="text/javascript" src="script/main.js"></script>
+</head>
+
+<body ng-app="musicPlayerApp" ng-controller="musicPlayerCtrl">
+    <i class="explore-icon"></i>
+    <div class="music-player-wrapper">
+        <div class="left-wrapper">
+            <div class="user-info">
+                <img class="profile-pic" src="https://files.slack.com/files-pri/T1UEU7539-FC8C3F04D/persona-5-676x380.png" width="55" height="55"><span class="user-name">Felix Wayan</span>
+            </div>
+            <div class="main-menu">
+                <ul>
+                    <li class="menu-list-header">Menu</li>
+                    <li class="menu-list"><i class="explore-icon"></i>Explore</li>
+                    <li class="menu-list"><span class="genres-icon"></span>Genres</li>
+                    <li class="menu-list"><i class="artists-icon"></i>Artists</li>
+                    <li class="menu-list"><i class="albums-icon"></i>Albums</li>
+                    <li class="menu-list"><i class="setting-icon"></i>Setting</li>
+                </ul>
+            </div>
+            <div class="main-menu">
+                <ul>
+                    <li class="menu-list-header">PlayList</li>
+                    <li ng-click="likedPlaylist()" class="menu-list"><i  class="liked-icon"></i>Liked</li>
+                    <li class="menu-list"><i class="classic-icon"></i>Classic Music</li>
+                    <li class="menu-list"><i class="new-play-icon"></i>New PlayList</li>
+            </div>
+        </div>
+        <div class="right-wrapper">
+            <div class="search-box-style">
+                <div class="search-box-wrapper">
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Search" />
+                        <i class="search-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="albums-wrapper">
+                <div class="heading">Featured Albums</div>
+                <div class="card-wrapper">
+                    <div ng-click="playSong(music)" ng-repeat="music in featuredAlbumData" class="card head-padding text-center">
+                        <img class="card-img" ng-src="{{music.img_url}}">
+                        <div class="card-album">{{music.album_name}}</div>
+                        <div class="card-name" ng-bind="music.file_name"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="albums-wrapper">
+                <div class="heading">Recently Played</div>
+                <div class="card-wrapper">
+                    <div ng-click="playSong(md)" ng-repeat="md in recentlyPlayedData" class="card head-padding text-center">
+                        <img class="card-img"  ng-src="{{md.img_url}}">
+                        <div class="card-album">{{md.file_name}}</div>
+                        <div class="card-name" ng-bind="md.album_name"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="currently-playing-wrapper">
+                <div class="common-style album-info">
+                    <img  src="https://upload.wikimedia.org/wikipedia/en/thumb/1/13/It_Will_Rain.png/220px-It_Will_Rain.png"  ng-src="{{currentSong.img_url}}">
+                    <span class="current-text">{{currentSong.file_name}}</span>
+                    <p class="current-song-text">{{currentSong.album_name}}
+                    </span>
+                    <audio id="audioPlayer" ng-src="{{currentSong.music_path}}" type="audio/mpeg" controls autoplay></audio>
+                </div>
+                <div class="common-style audio-player-wrapper">
+                    <div class="slider common-style">
+                        <div class="current-time common-style">{{currentSongObj.mins}}:<span ng-show="currentSongObj.secs.length==1">0</span>{{currentSongObj.secs}}</div>
+                        <div id="songBar" class="ldBar common-style" data-value="0"></div>
+                        <div class="total-time common-style">{{currentSong.total_time}}</div>
+                    </div>
+                    <div class="controls common-style">
+                        <div class="prev-control common-style"> <i ng-click="playPrevSong(currentSong)" class="prev-icon" ></i></div>
+                        <div ng-hide="!hide" class="play-control common-style" ng-click="pauseSong(currentSong)"><i class="pause-icon"></i></div>
+                        <div ng-hide="hide" class="play-control common-style" ng-click="playSong(currentSong)"><i class="play-icon"></i></div>
+                        <div class="next-control common-style"><i ng-click="playNextSong(currentSong)" class="next-icon"></i></div>
+                    </div>
+                    <div class="volume common-style">
+                        <div ng-hide="hidemuteicon" class="common-style"><i class="vol-icon" ng-click="mute(true)"></i><i class="vol-slider"></i>
+                        </div>
+                        <div ng-hide="!hidemuteicon" class="common-style"><i class="mute-icon" ng-click="mute(false)"></i><i class="vol-slider"></i>
+                        </div>
+                    </div>
+                    <div class="extra-features common-style">
+                        <!-- {{currentSong.fav_value}} -->
+                        <div ng-show="currentSong.fav_value == false" class="fav common-style"><i ng-click="fav(currentSong,true)" class="unfav-icon"></i></div>
+                        <div ng-show="currentSong.fav_value == true" class="fav common-style"><i ng-click="fav(currentSong,false)" class="fav-icon"></i></div>
+                        <div class="shuffle common-style"><i ng-click="shuffle()" class="shuffle-icon"></i></div>
+                        <div class="replay common-style"><i ng-click="repeat()" class="replay-icon"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-hide="!hideLiked" class="likedPlaylistBox">
+        <div class="likedPlaylist">
+            <i class="clear-icon" ng-click="back()"></i>
+            <div class="favListStyle">
+                <div class="favListBox" ng-repeat="music in favList">
+                    <div><img class="fav-card-img" ng-src="{{music.img_url}}" ng-click="playSong(music,false)">
+                        <div ng-show="music.fav_value == false" class="unfav1 common-style"><i ng-click="fav(music,true)" class="fav1-icon"></i></div>
+                        <div ng-show="music.fav_value == true" class="fav common-style"><i ng-click="fav(music,false)" class="fav1-icon"></i></div>
+                    </div>
+                    <div class="fav-card-singer-name">{{music.album_name}}</div>
+                    <div class="fav-card-name" ng-bind="music.file_name"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
