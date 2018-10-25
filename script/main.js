@@ -8,7 +8,7 @@ app.controller("musicPlayerCtrl", function($scope) {
                 "album_name": "Unorthodox Jukebox",
                 "file_name": "Bruno Mars",
                 "img_url": "https://upload.wikimedia.org/wikipedia/en/7/77/BrunoMarsUJAlbumCover.png",
-                "total_time": "0:27",
+                "total_time": "5:37",
                 "music_path": "sample1.mp3",
                 "fav_value": false
             },
@@ -68,9 +68,9 @@ app.controller("musicPlayerCtrl", function($scope) {
                 "id": 2,
                 "album_name": "Eminem",
                 "file_name": "Monster",
-                "music_path": "sample.mp3",
+                "music_path": "eminem.mp3",
                 "img_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/The_Monster_cover.png/220px-The_Monster_cover.png",
-                "total_time": "0:27",
+                "total_time": "5:04",
                 "fav_value": false
             },
             {
@@ -96,8 +96,8 @@ app.controller("musicPlayerCtrl", function($scope) {
                 "id": 5,
                 "album_name": "Justin Timberlake",
                 "file_name": "Mirrors",
-                "total_time": "5:09",
-                "music_path": "temp.mp3",
+                "total_time": "2:58",
+                "music_path": "eminem1.mp3",
                 "fav_value": false,
                 "img_url": "http://www.mrwillwong.com/wp-content/uploads/2013/03/Justin-Timberlake_The-2020-Experience_Album-Artwork.jpg"
             }
