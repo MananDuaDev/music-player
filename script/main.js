@@ -17,7 +17,7 @@ app.controller("musicPlayerCtrl", function($scope) {
                 "album_name": "Revival",
                 "file_name": "Eminem",
                 "img_url": "https://i.ebayimg.com/images/i/142624395592-0-1/s-l1000.jpg",
-                "total_time": "3:26",
+                "total_time": "4:30",
                 "music_path": "mars1.mp3",
                 "fav_value": false
             },
@@ -123,6 +123,9 @@ app.controller("musicPlayerCtrl", function($scope) {
             $scope.currentSongObj.mins = Math.floor(parseInt(audio.currentTime) / 60);
             $scope.currentSongObj.secs = Math.floor(parseInt(audio.currentTime) % 60).toString();
             $scope.currentSongObj.percent = Math.floor((parseInt(audio.currentTime) / parseInt(audio.duration)) * 100).toString();
+            
+            $scope.currentSongObj.percent = parseInt($scope.currentSongObj.percent);
+            // console.log("$scope.currentSongObj.percent",typeof($scope.currentSongObj.percent));
             bar.set($scope.currentSongObj.percent);
 
         });
