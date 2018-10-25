@@ -80,7 +80,7 @@ app.controller("musicPlayerCtrl", function($scope) {
                 "music_path": "drake.mp3",
                 "total_time": "3:36",
                 "fav_value": false,
-                "img_url": "https://files.slack.com/files-pri/T1UEU7539-FCCT684E7/https__2f_2fimages.genius.com_2f2fee80dd9aec0717aef8e1eb7aaaae4c.809x809x1.jpg"
+                "img_url": "https://storage.journaldemontreal.com/v1/dynamic_resize/sws_path/jdx-prod-images/2fa0499e-ae76-4ca2-96f2-e1b3a5485147_JDX-NO-RATIO_WEB.jpg?quality=80&version=0&size=1200x"
             },
             {
                 "id": 4,
