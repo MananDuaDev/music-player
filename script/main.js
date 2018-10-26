@@ -1,4 +1,20 @@
-var app = angular.module("musicPlayerApp", []);
+var app = angular.module("musicPlayerApp", ['ngRoute']);
+
+app.config(function($routeProvider,$locationProvider){
+    $routeProvider
+    .when('/home',{
+        templateUrl:'player.html',
+        controller:'musicPlayerCtrl'
+    })
+    .when('/login',{
+        templateUrl:'search.html',
+        controller:'loginCtrl'
+    })
+    .otherwise({redirectTo:'/login'});
+
+    // $locationProvider.html5Mode(true);
+});
+
 app.controller("musicPlayerCtrl", function($scope) {
     $scope.featuredAlbumData = {
         "id": 1,
@@ -216,3 +232,12 @@ app.controller("musicPlayerCtrl", function($scope) {
     }
 
 });
+
+app.controller("loginCtrl", function($scope){
+    $scope.email="";
+    $scope.password="";
+     $scope.submit = function() {
+      
+
+    };
+})
